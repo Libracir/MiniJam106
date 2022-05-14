@@ -9,8 +9,7 @@ public class Fly : Enemy
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        base.OnTriggerEnter2D(collision);
-        if (collision.gameObject.tag == "Me")
+        if (collision.gameObject.tag == "Me" || collision.gameObject.tag == "Laser")
         {
             Die();
         }

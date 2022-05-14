@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     public GameObject blam;
     protected BoxCollider2D boxCollider;
     protected Vector3 moveDelta;
+    private bool locked;
 
     protected RaycastHit2D hit;
 
@@ -20,11 +21,15 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Die()
     {
-        GameObject temp = Instantiate(blam, transform.position, Quaternion.identity);
-        temp.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
-        temp.transform.parent = null;
-        GameManager.instance.scorePoints += 1;
-        Destroy(this.gameObject);
+        if (!locked) 
+        {
+            locked = true;
+            Destroy(this.gameObject);
+            GameObject temp = Instantiate(blam, transform.position, Quaternion.identity);
+            temp.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+            temp.transform.parent = null;
+            GameManager.instance.scorePoints += 1;
+        }
     }
     protected virtual void UpdateMotor(Vector3 input, float speed)
     {

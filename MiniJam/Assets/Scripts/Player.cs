@@ -85,7 +85,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Lava")
         {
@@ -107,7 +107,7 @@ public class Player : MonoBehaviour
     }
     IEnumerator delayStick()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.05f);
         delay = false;
     }
 

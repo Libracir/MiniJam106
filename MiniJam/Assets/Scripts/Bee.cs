@@ -13,11 +13,13 @@ public class Bee : Enemy
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        base.OnTriggerEnter2D(collision);
         if (collision.gameObject.tag == "Me")
         {
             GameManager.instance.health -= 1;
             GameManager.instance.ScreenShake(0.3f, 1);
+            Die();
+        } else if (collision.gameObject.tag == "Laser")
+        {
             Die();
         }
     }
