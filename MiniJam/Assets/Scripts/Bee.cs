@@ -10,13 +10,14 @@ public class Bee : Enemy
     private bool chasing;
     private Transform playerTransform;
     private Vector3 startingPosition;
+    public GameObject player;
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Me")
         {
             GameManager.instance.health -= 1;
-            GameManager.instance.ScreenShake(0.3f, 1);
+            GameManager.instance.ScreenShake(0.15f, 0.25f);
             Die();
         } else if (collision.gameObject.tag == "Laser")
         {
@@ -27,30 +28,40 @@ public class Bee : Enemy
     {
         playerTransform = GameManager.instance.player.transform;
         startingPosition = transform.position;
+        player = GameObject.Find("Player");
     }
 
     private void FixedUpdate()
     {
-        if (Vector3.Distance(playerTransform.position, startingPosition) < chaseLength)
+        if (Mathf.Abs(Vector3.Distance(transform.position, player.transform.position)) <= 15f)
         {
-            if (Vector3.Distance(playerTransform.position, startingPosition) < triggerLength)
+            gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            if (Vector3.Distance(playerTransform.position, startingPosition) < chaseLength)
             {
-                chasing = true;
-            }
+                if (Vector3.Distance(playerTransform.position, startingPosition) < triggerLength)
+                {
+                    chasing = true;
+                }
 
-            if (chasing)
-            {
-                UpdateMotor((playerTransform.position - transform.position).normalized, speed);
+                if (chasing)
+                {
+                    UpdateMotor((playerTransform.position - transform.position).normalized, speed);
+                }
+                else
+                {
+                    UpdateMotor(startingPosition - transform.position, speed);
+                    chasing = false;
+                }
             }
-            else
-            {
-                UpdateMotor(startingPosition - transform.position, speed);
-                chasing = false;
-            }
+            startingPosition = transform.position;
+            BeeRotate();
         }
-        startingPosition = transform.position;
-        BeeRotate();
+        else
+        {
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        }
     }
+
     private void BeeRotate()
     {
         if (playerTransform.position.x - transform.position.x <= 0) 
