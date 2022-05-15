@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class StartButton : MonoBehaviour
 {
     public Button startButton;
+    public Sprite sprite;
     private void Start()
     {
         startButton.onClick.AddListener(LoadGame);
@@ -14,7 +15,7 @@ public class StartButton : MonoBehaviour
 
     private void LoadGame()
     {
-        Debug.Log("Clicked");
+        GetComponent<Image>().sprite = sprite;
         SceneManager.LoadScene("Start");
     }
 

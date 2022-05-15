@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     public GameObject gun;
     public GameObject blam;
     public GameObject Death;
+    public bool lavaDelay;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -92,11 +93,17 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Lava")
         {
-            Die();
+            if (!lavaDelay)
+            {
+                lavaDelay = true;
+                StartCoroutine(delayLava());
+                GameManager.instance.health -= 1;
+                GameManager.instance.ScreenShake(0.15f, 0.25f);
+            }
         }
     }
 
@@ -108,7 +115,7 @@ public class Player : MonoBehaviour
     }
     IEnumerator delay3()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.1f);
         delayCheck = false;
         
     }
@@ -116,6 +123,11 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(0.05f);
         delay = false;
+    }
+    IEnumerator delayLava()
+    {
+        yield return new WaitForSeconds(0.5f);
+        lavaDelay = false;
     }
 
     public void Die()

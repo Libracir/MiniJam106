@@ -2308,8 +2308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startButton: {fileID: 749636632}
-  scene:
-    m_Handle: 0
+  sprite: {fileID: 5967082200621192042, guid: da85ebfc39b6d0945993ebd44e78ea57, type: 3}
 --- !u!1 &759548033
 GameObject:
   m_ObjectHideFlags: 0

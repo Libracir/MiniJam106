@@ -9,9 +9,9 @@ public class Heart : MonoBehaviour
         if (collision.gameObject.tag == "Me")
         {
             GameManager.instance.health += 1;
-            if (GameManager.instance.health > 3)
+            if (GameManager.instance.health > 4)
             {
-                GameManager.instance.health = 3;
+                GameManager.instance.health = 4;
             }
             Destroy(this.gameObject);
         }

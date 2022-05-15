@@ -7,12 +7,15 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
 
-    public int health = 3;
+    public int health = 4;
     public Player player;
     public ScreenShake shake;
     public Text score;
     public int scorePoints;
     public GameObject damage;
+
+    public GameObject endScreen;
+    public GameObject endScore;
 
     public static GameManager instance;
     private void Awake()
@@ -52,5 +55,13 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(length);
         damage.SetActive(false);
+    }
+
+
+    public void End()
+    {
+        endScreen.SetActive(true);
+        endScore.GetComponent<Text>().text = scorePoints.ToString();
+        player.gameObject.SetActive(false);
     }
 }
