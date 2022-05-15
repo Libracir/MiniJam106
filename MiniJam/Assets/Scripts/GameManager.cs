@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public ScreenShake shake;
     public Text score;
     public int scorePoints;
+    public GameObject damage;
 
     public static GameManager instance;
     private void Awake()
@@ -41,6 +42,15 @@ public class GameManager : MonoBehaviour
 
     public void ScreenShake(float length, float power)
     {
+        GetComponent<AudioSource>().Play();
         shake.StartShake(length, power);
+        damage.SetActive(true);
+        StartCoroutine(Bonked(length));
+    }
+
+    IEnumerator Bonked(float length)
+    {
+        yield return new WaitForSeconds(length);
+        damage.SetActive(false);
     }
 }

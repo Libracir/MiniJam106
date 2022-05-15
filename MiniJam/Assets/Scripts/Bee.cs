@@ -17,8 +17,8 @@ public class Bee : Enemy
         if (collision.gameObject.tag == "Me")
         {
             GameManager.instance.health -= 1;
-            GameManager.instance.ScreenShake(0.15f, 0.25f);
             Die();
+            GameManager.instance.ScreenShake(0.15f, 0.25f);
         } else if (collision.gameObject.tag == "Laser")
         {
             Die();

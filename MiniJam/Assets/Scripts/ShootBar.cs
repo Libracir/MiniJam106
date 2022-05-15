@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class ShootBar : MonoBehaviour
 {
     Image image;
+    public Sprite sprite;
+    public Sprite normal;
     public LaserSpawn laserSpawn;
     void Start()
     {
@@ -14,6 +16,14 @@ public class ShootBar : MonoBehaviour
 
     void Update()
     {
+        if ((Time.time - laserSpawn.lastShot) * 2 >= 1)
+        {
+            image.sprite = sprite;
+        } else
+        {
+            image.sprite = normal;
+        }
+
         image.fillAmount = (Time.time - laserSpawn.lastShot) * 2;
     }
 }

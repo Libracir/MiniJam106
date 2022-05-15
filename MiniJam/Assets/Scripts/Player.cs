@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public Collision collision;
     public bool delay;
     private bool delayCheck;
+    public float audioVariaty;
 
     public Sprite left;
     public Sprite right;
@@ -35,6 +36,12 @@ public class Player : MonoBehaviour
             rb.constraints = RigidbodyConstraints2D.FreezePosition;
             if (Input.GetMouseButtonDown(1))
             {
+
+                AudioSource audio = GetComponent<AudioSource>();
+                audio.pitch = 0.75f + Random.Range(-1f, 1f) * audioVariaty;
+                audio.Play();
+
+
                 GameObject temp = Instantiate(blam, transform.position, Quaternion.identity);
                 temp.transform.position += new Vector3(0, -0.5f, 0);
                 temp.transform.parent = null;
